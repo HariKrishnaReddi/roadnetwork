@@ -15,15 +15,8 @@ public class ExceptionControllerAdvice {
 	private final Log LOG = LogFactory.getLog(ExceptionControllerAdvice.class);
 
 	@ExceptionHandler(CityNotFoundException.class)
-	public ResponseEntity<ErrorResponse> handleCityNotFoundException(CityNotFoundException ex) {
+	public ResponseEntity<String> handleCityNotFoundException(CityNotFoundException ex) {
 		LOG.error("Not Found Exception", ex);
-		return new ResponseEntity<>(createErrorResponse(HttpStatus.NOT_FOUND, ex.getMessage()), HttpStatus.NOT_FOUND);
-	}
-
-	private ErrorResponse createErrorResponse(HttpStatus status, String message) {
-		ErrorResponse errorResponse = new ErrorResponse();
-		errorResponse.setErrorCode(status.value());
-		errorResponse.setMessage(message);
-		return errorResponse;
+		return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
 	}
 }

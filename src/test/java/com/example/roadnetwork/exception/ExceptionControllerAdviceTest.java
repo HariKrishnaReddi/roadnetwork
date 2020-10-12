@@ -13,9 +13,9 @@ public class ExceptionControllerAdviceTest {
 	@Test
 	public void handleNotFoundException() {
 
-		ResponseEntity<ErrorResponse> result = advice.handleCityNotFoundException(new CityNotFoundException("London"));
+		ResponseEntity<String> result = advice.handleCityNotFoundException(new CityNotFoundException("London"));
 		assertNotNull(result);
 		assertEquals(HttpStatus.NOT_FOUND, result.getStatusCode());
-		assertEquals("City with name: London not found", result.getBody().getMessage());
+		assertEquals("no", result.getBody());
 	}
 }
