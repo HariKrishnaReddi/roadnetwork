@@ -1,13 +1,24 @@
 package com.example.roadnetwork;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.runner.RunWith;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
+import org.springframework.test.context.web.WebAppConfiguration;
 
-@SpringBootTest
-class RoadnetworkApplicationTests {
-
+/**
+ *
+ */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = RoadnetworkApplication.class)
+@WebAppConfiguration
+@DirtiesContext
+@TestExecutionListeners({ DirtiesContextTestExecutionListener.class })
+public class RoadnetworkApplicationTests {
 	@Test
-	void contextLoads() {
+	public void emptySpringContextLoadTest() {
 	}
-
 }
