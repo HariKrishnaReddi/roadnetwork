@@ -21,6 +21,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.example.roadnetwork.domain.City;
 import com.example.roadnetwork.service.CityMapService;
 
+/**
+ * Unit test RoadNetworkController with mocked dependencies
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class RoadNetworkControllerTest {
 	private MockMvc mockMvc;
@@ -36,8 +39,8 @@ public class RoadNetworkControllerTest {
 	public void setUp() {
 		mockMvc = MockMvcBuilders.standaloneSetup(beanUnderTest).build();
 
-		City origin = new City("origin");
-		City destination = new City("destination");
+		City origin = City.build("origin");
+		City destination = City.build("destination");
 
 		doReturn(origin).when(service).getCity("ORIGIN");
 		doReturn(destination).when(service).getCity("DESTINATION");
