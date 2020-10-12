@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.Set;
 
@@ -15,6 +16,15 @@ public class CityTest {
 		for (Constructor<?> constructor : constructors) {
 			assertTrue(Modifier.isPrivate(constructor.getModifiers()));
 		}
+	}
+
+	@Test(expected = InvocationTargetException.class)
+	public void verifyCityConstructor() throws NoSuchMethodException, SecurityException, InstantiationException,
+			IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+
+		final Constructor<City> constructor = City.class.getDeclaredConstructor();
+		constructor.setAccessible(true);
+		constructor.newInstance();
 	}
 
 	@Test
@@ -98,6 +108,28 @@ public class CityTest {
 
 		assertTrue(city.isConnected(City.build("Dover")));
 		assertTrue(city.isConnected(City.build("Delaware")));
+	}
+
+	@Test
+	public void isConnectedComplex() {
+		City nycCity = City.build("New York");
+		City bostonCity = City.build("Boston");
+		City albanyCity = City.build("Albany");
+		nycCity.addNearby(bostonCity).addNearby(albanyCity);
+
+		City harrisburgCity = City.build("Harrisburg");
+		City harrisonCity = City.build("Harrison");
+		City glendaleCity = City.build("Glendale");
+
+		albanyCity.addNearby(harrisburgCity).addNearby(harrisonCity).addNearby(glendaleCity);
+		assertTrue(nycCity.isConnected(glendaleCity));
+	}
+
+	@Test
+	public void toStringTest() {
+		City nycCity = City.build("New York");
+		String toString = nycCity.toString();
+		assertTrue(toString.contains("City"));
 	}
 
 }

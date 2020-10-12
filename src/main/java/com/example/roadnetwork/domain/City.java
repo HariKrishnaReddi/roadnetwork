@@ -73,18 +73,15 @@ public class City {
 	 *         <code>false</code> if not.
 	 */
 	public boolean hasConnectionWith(final City city) {
-		if (connections != null && !connections.isEmpty()) {
+		if (connections.isEmpty()) {
+			return false;
+		} else {
 			return connections.contains(city);
 		}
-		return false;
 	}
 
 	public String getName() {
 		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public City addNearby(City city) {
@@ -107,8 +104,7 @@ public class City {
 	public boolean isConnected(City destination) {
 
 		boolean connected = false;
-		if (this.equals(destination) || this.getNearby().contains(destination) 
-				|| this.hasConnectionWith(destination)) {
+		if (this.equals(destination) || this.getNearby().contains(destination) || this.hasConnectionWith(destination)) {
 			connected = true;
 		} else {
 
